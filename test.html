@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trading Performance Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    canvas {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Trading Performance</h1>
+  <canvas id="tradingChart"></canvas>
+  
+  <script>
+    // Data for the chart
+    const labels = ['0', '5', '10', '15', '20', '25', '30']; // X-axis labels
+    const balanceData = [0, -8000, 4000, -4000, 12000, -16000, 16000]; // Y-axis values
+
+    // Chart setup
+    const ctx = document.getElementById('tradingChart').getContext('2d');
+    const tradingChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Balance (€)',
+          data: balanceData,
+          borderColor: 'teal',
+          backgroundColor: 'rgba(0, 128, 128, 0.1)',
+          borderWidth: 2,
+          tension: 0, // Smooth curves
+          pointRadius: 5, // Data points size
+          pointBackgroundColor: 'teal'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `Balance: €${context.raw}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Number of Trades'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Balance (€)'
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
